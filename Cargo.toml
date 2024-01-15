@@ -3,6 +3,7 @@ name = "cargo-like-utils"
 version = "0.1.0"
 edition = "2021"
 license = "MIT OR Apache-2.0"
+description = "A colletion of utils to build CLIs with an output style and a behaviour similar to `cargo`"
 
 [dependencies]
 libc = "0.2.149"
