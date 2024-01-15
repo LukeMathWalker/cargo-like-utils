@@ -383,7 +383,7 @@ fn try_acquire(path: &Path, lock_try: &dyn Fn() -> io::Result<()>) -> anyhow::Re
 /// Returns an error if the lock could not be acquired or if any error other
 /// than a contention error happens.
 fn acquire(
-    mut shell: &mut Shell,
+    shell: &mut Shell,
     msg: &str,
     path: &Path,
     lock_try: &dyn Fn() -> io::Result<()>,
