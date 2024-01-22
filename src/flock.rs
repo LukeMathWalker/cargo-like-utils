@@ -269,7 +269,7 @@ impl Filesystem {
         msg: &str,
     ) -> anyhow::Result<FileLock> {
         let mut opts = OpenOptions::new();
-        opts.read(true).write(true).truncate(true).create(true);
+        opts.read(true).write(true).create(true);
         let (path, f) = self.open(path.as_ref(), &opts, true)?;
         acquire(shell, msg, &path, &|| try_lock_shared(&f), &|| {
             lock_shared(&f)
@@ -286,7 +286,7 @@ impl Filesystem {
         path: P,
     ) -> anyhow::Result<Option<FileLock>> {
         let mut opts = OpenOptions::new();
-        opts.read(true).write(true).truncate(true).create(true);
+        opts.read(true).write(true).create(true);
         let (path, f) = self.open(path.as_ref(), &opts, true)?;
         if try_acquire(&path, &|| try_lock_shared(&f))? {
             Ok(Some(FileLock { f: Some(f), path }))
