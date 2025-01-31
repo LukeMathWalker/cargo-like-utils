@@ -1,6 +1,6 @@
 [package]
 name = "cargo-like-utils"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2021"
 license = "MIT OR Apache-2.0"
 description = "A colletion of utils to build CLIs with an output style and a behaviour similar to `cargo`"
