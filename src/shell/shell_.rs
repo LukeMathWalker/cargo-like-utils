@@ -52,7 +52,7 @@ impl fmt::Debug for Shell {
 /// A `Write`able object, either with or without color support
 enum ShellOut {
     /// A plain write object without color support
-    Write(AutoStream<Box<dyn Write>>),
+    Write(AutoStream<Box<dyn Write + Send + Sync>>),
     /// Color-enabled stdio, with information on whether color should be used
     Stream {
         stdout: AutoStream<std::io::Stdout>,
@@ -96,7 +96,7 @@ impl Shell {
     }
 
     /// Creates a shell from a plain writable object, with no color, and max verbosity.
-    pub fn from_write(out: Box<dyn Write>) -> Shell {
+    pub fn from_write(out: Box<dyn Write + Send + Sync>) -> Shell {
         Shell {
             output: ShellOut::Write(AutoStream::never(out)), // strip all formatting on write
             verbosity: Verbosity::Verbose,
@@ -621,7 +621,9 @@ fn default_err_erase_line(shell: &mut Shell) {
 }
 
 pub mod style {
-    use anstyle::{AnsiColor, Effects, Style};
+    use anstyle::{AnsiColor, Effects};
+
+    pub use anstyle::Style;
 
     pub const HEADER: Style = AnsiColor::Green.on_default().effects(Effects::BOLD);
     pub const ERROR: Style = AnsiColor::Red.on_default().effects(Effects::BOLD);
